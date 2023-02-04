@@ -18,9 +18,7 @@ if option == 'Real-time Recognition':
     while start:
         camera = cv2.VideoCapture(0)
         _, frame = camera.read()
-        if frame.size == 0:
-            print(' ')
-        else:
+        if frame is not None:
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             emotion_dict = {0: "Angry", 1: "Disgusted", 2: "Fearful", 3: "Happy", 4: "Neutral", 5: "Sad", 6: "Surprised"}
 
@@ -50,6 +48,8 @@ if option == 'Real-time Recognition':
                 maxindex = int(np.argmax(emotion_prediction))
                 cv2.putText(frame, emotion_dict[maxindex], (x+5, y-20), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
                 FRAME_WINDOW.image(frame)
+        else:
+            print(' ')
     else:
         st.write("Stopped")
 else:
@@ -61,7 +61,7 @@ else:
         camera = cv2.VideoCapture(tfile.name)
         while camera.isOpened():
             _, frame = camera.read()
-            if frame.size != 0:
+            if frame is not None:
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 emotion_dict = {0: "Angry", 1: "Disgusted", 2: "Fearful", 3: "Happy", 4: "Neutral", 5: "Sad", 6: "Surprised"}
 
