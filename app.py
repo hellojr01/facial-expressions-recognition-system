@@ -29,7 +29,7 @@ if option == 'Real-time Recognition':
         emotion_model = model_from_json(loaded_model_json)
 
         # load weights into new model
-        emotion_model.load_weights("./model/model4.h5")
+        emotion_model.load_weights("./model/model.h5")
 
         face_detector = cv2.CascadeClassifier('haarcascades/haarcascade_frontalface_default.xml')
         gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -69,7 +69,7 @@ else:
             emotion_model = model_from_json(loaded_model_json)
 
             # load weights into new model
-            emotion_model.load_weights("./model/model4.h5")
+            emotion_model.load_weights("./model/model.h5")
 
             face_detector = cv2.CascadeClassifier('haarcascades/haarcascade_frontalface_default.xml')
             gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
