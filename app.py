@@ -22,13 +22,13 @@ if option == 'Real-time Recognition':
         emotion_dict = {0: "Angry", 1: "Disgusted", 2: "Fearful", 3: "Happy", 4: "Neutral", 5: "Sad", 6: "Surprised"}
 
         # load json and create model
-        json_file = open('./model/model.json', 'r')
+        json_file = open('./model/model4.json', 'r')
         loaded_model_json = json_file.read()
         json_file.close()
         emotion_model = model_from_json(loaded_model_json)
 
         # load weights into new model
-        emotion_model.load_weights("./model/model.h5")
+        emotion_model.load_weights("./model/model4.h5")
 
         face_detector = cv2.CascadeClassifier('haarcascades/haarcascade_frontalface_default.xml')
         gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -62,13 +62,13 @@ else:
             emotion_dict = {0: "Angry", 1: "Disgusted", 2: "Fearful", 3: "Happy", 4: "Neutral", 5: "Sad", 6: "Surprised"}
 
             # load json and create model
-            json_file = open('./model/model.json', 'r')
+            json_file = open('./model/model4.json', 'r')
             loaded_model_json = json_file.read()
             json_file.close()
             emotion_model = model_from_json(loaded_model_json)
 
             # load weights into new model
-            emotion_model.load_weights("./model/model.h5")
+            emotion_model.load_weights("./model/model4.h5")
 
             face_detector = cv2.CascadeClassifier('haarcascades/haarcascade_frontalface_default.xml')
             gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
