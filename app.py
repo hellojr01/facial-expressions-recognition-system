@@ -17,6 +17,7 @@ option = st.sidebar.selectbox(
     ("Real-time Recognition", "Upload Video")
 )
 FRAME_WINDOW = st.image([])
+emotion_count = {"Angry":0, "Disgusted":0, "Fearful":0, "Happy":0, "Neutral":0, "Sad":0, "Surprised":0}
 
 lock = threading.Lock()
 img_container = {"img": None}
@@ -44,13 +45,13 @@ if option == 'Real-time Recognition':
         emotion_dict = {0: "Angry", 1: "Disgusted", 2: "Fearful", 3: "Happy", 4: "Neutral", 5: "Sad", 6: "Surprised"}
 
         # load json and create model
-        json_file = open('./model/model.json', 'r')
+        json_file = open('./model/model4.json', 'r')
         loaded_model_json = json_file.read()
         json_file.close()
         emotion_model = model_from_json(loaded_model_json)
 
         # load weights into new model
-        emotion_model.load_weights("./model/model.h5")
+        emotion_model.load_weights("./model/model4.h5")
 
         face_detector = cv2.CascadeClassifier('haarcascades/haarcascade_frontalface_default.xml')
         gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -71,6 +72,18 @@ if option == 'Real-time Recognition':
             emotion_count[emotion_dict[maxindex]] += 1
             cv2.putText(frame, emotion_dict[maxindex], (x+5, y-20), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
             FRAME_WINDOW.image(frame)
+        
+        # if st.button('Bar Chart'):
+        #     # display bar chart
+        #     x_axis = [emotion_dict[i] for i in range(len(emotion_dict))]
+        #     y_axis = [emotion_count[emotion_dict[i]] for i in range(len(emotion_count))]
+
+        #     plt.bar(x_axis, y_axis)
+        #     plt.title('Facial Expression Analysis')
+        #     plt.xlabel('Facial Expression')
+        #     plt.ylabel('Occurence')
+        #     plt.show()
+
     # else:
     #     st.write("Stopped")
 else:
@@ -85,13 +98,13 @@ else:
             emotion_dict = {0: "Angry", 1: "Disgusted", 2: "Fearful", 3: "Happy", 4: "Neutral", 5: "Sad", 6: "Surprised"}
 
             # load json and create model
-            json_file = open('./model/model.json', 'r')
+            json_file = open('./model/model4.json', 'r')
             loaded_model_json = json_file.read()
             json_file.close()
             emotion_model = model_from_json(loaded_model_json)
 
             # load weights into new model
-            emotion_model.load_weights("./model/model.h5")
+            emotion_model.load_weights("./model/model4.h5")
 
             face_detector = cv2.CascadeClassifier('haarcascades/haarcascade_frontalface_default.xml')
             gray_frame = cv2.cvtColor(frames, cv2.COLOR_BGR2GRAY)
@@ -110,6 +123,16 @@ else:
                 maxindex = int(np.argmax(emotion_prediction))
                 cv2.putText(frame, emotion_dict[maxindex], (x+5, y-20), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
                 FRAME_WINDOW.image(frame)
-                # stframe.image(frame)
+            
+        # if st.button('Bar Chart'):
+        #     # display bar chart
+        #     x_axis = [emotion_dict[i] for i in range(len(emotion_dict))]
+        #     y_axis = [emotion_count[emotion_dict[i]] for i in range(len(emotion_count))]
+
+        #     plt.bar(x_axis, y_axis)
+        #     plt.title('Facial Expression Analysis')
+        #     plt.xlabel('Facial Expression')
+        #     plt.ylabel('Occurence')
+        #     plt.show()
     else:
         st.write(" ")
